@@ -1,0 +1,22 @@
+---
+- name: First play- Ansible - End a play for certain hosts using meta end_host
+  hosts: all
+  tasks:
+    - name: Use "stat" to determine if /tmp/foo.txt exists on the host
+      ansible.builtin.stat:
+        path: /tmp/foo.txt
+      register: out
+
+    - name: End_host if /tmp/foo.txt does not exist on the host
+      ansible.builtin.meta: end_host
+      when: out.stat.exists == false 
+
+    - ansible.builtin.debug:
+        msg: "/tmp/foo.txt exists"
+
+- name: Second play
+  hosts: all
+  tasks:
+  - ansible.builtin.debug:
+      msg: "second play"
+...
