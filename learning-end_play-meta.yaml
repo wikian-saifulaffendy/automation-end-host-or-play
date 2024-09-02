@@ -1,0 +1,24 @@
+---
+- name: First play - Ansible - End a play for all hosts using meta end_play
+  hosts: all
+  tasks:
+  - ansible.builtin.debug:
+      msg: "first task in first play"
+  
+  - meta: end_play
+
+  - ansible.builtin.debug:
+      msg: "second task in first play"
+
+- name: Second play
+  hosts: all
+  tasks:
+  - ansible.builtin.debug:
+      msg: "first task in second play"
+
+  - meta: end_play
+
+  - ansible.builtin.debug:
+      msg: "second task in second play"
+...
+# https://www.freekb.net/Article?id=2383
